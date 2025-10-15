@@ -17,12 +17,6 @@ Plateau dadosPlateau(Histograma hist) {
     Plateau plato;
     bool templateau = false;
 
-    hist.arr[hist.n_elem];
-    for(int i=0;i<hist.n_elem;i++) {
-        cin >> hist.arr[i];
-    }
-
-
     // 10 20 50 50 50 30 15
     for (int i=0;i<hist.n_elem-1;i++) {
         if(hist.arr[i] == hist.arr[i+1]) {
@@ -35,7 +29,7 @@ Plateau dadosPlateau(Histograma hist) {
 
     if(templateau) {
         for (int i=plato.indice_inicial;i<hist.n_elem-1;i++) {
-            if(hist.arr[i] != hist.arr[i-1]) {
+            if(hist.arr[i] != hist.arr[i+1]) {
                 plato.indice_final = i;
                 break;
             }
@@ -49,5 +43,16 @@ Plateau dadosPlateau(Histograma hist) {
 
 int main() {
     Histograma histog;
-    dadosPlateau(histog);
+    cin >> histog.n_elem;
+    histog.arr[histog.n_elem];
+
+    for (int i=0;i<histog.n_elem;i++) {
+        cin >> histog.arr[i];
+    }
+    
+    //Cria se um novo Plateau para armazenar o valor de retorno de dadosPlateau:
+    Plateau result = dadosPlateau(histog);
+    cout << result.indice_inicial << '\n';
+    cout << result.indice_final << '\n';
+    cout << result.valor_freq << '\n';
 }
