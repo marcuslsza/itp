@@ -1,32 +1,37 @@
-#include <iostream>
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest.h"
 #include <string>
-using namespace std;
+
+const int MAX_SIZE = 10;
 
 struct Paciente {
-    string nome;
+    std::string nome;
     float peso;
 };
 
-float media(int listaPacientes[], int tam) {
-    float peso_somatorio = 0;
-    float peso_medio;
-    for (int i=0;i<tam;i++) {
-        Paciente paciente;
-        cout << "Nome paciente " << i+1 << ' ';
-        cin >> paciente.nome; // Nao vai ser utilizado. (?)
-        cout << "Peso paciente " << i+1 << ' ';
-        cin >> paciente.peso;
-        cout << '\n';
-        peso_somatorio += paciente.peso;
+
+struct Clinica {
+    int n_pacientes;
+    Paciente listaDePacientes[MAX_SIZE];
+};
+
+float calcularMediaPesos(Clinica clinica) {
+    float total = 0;
+    clinica.listaDePacientes[clinica.n_pacientes];
+    
+    for (int i=0;i<clinica.n_pacientes;i++) {
+        total += clinica.listaDePacientes[i].peso;
     }
-    return peso_somatorio/tam;
+    
+    return total/clinica.n_pacientes;
 }
 
 
-
-int main() {
-    cout << "Quantos pacientes? ";
-    int n, arr[n];
-    cin >> n; //No. de pacientes.
-    cout << "Peso médio: " << media(arr, n);
+TEST_CASE("Calcular média dos pesos dos clientes") {
+    Clinica clinica = {
+      3,
+      {{"Fulano", 60.5}, {"Beltrano", 75.0}, {"Sicrano", 82.3}}
+    };
+    float media = calcularMediaPesos(clinica);
+    CHECK(media == doctest::Approx(72.6).epsilon(0.1));
 }
