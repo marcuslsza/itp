@@ -15,20 +15,22 @@ struct ListaItens {
     Item itens[MAX_ITENS];
 };
 
-bool inserirItem(ListaItens lista, Item item) {
-    lista.itens[lista.quantidade];
+bool inserirItem(ListaItens &lista, Item item) {
+    //lista.itens[lista.quantidade];
+    
     if(lista.quantidade < MAX_ITENS) {
-        lista.itens[0] = item;
+        lista.itens[lista.quantidade] = item;
+        lista.quantidade++;
         return true;
     }
-    else return false;
+    return false;
 }
 
 float calcularDivisao(ListaItens lista, int qtdPessoas) {
     float total = 0;
     //lista.itens[lista.quantidade];
     for (int i=0;i<lista.quantidade;i++) {
-        total += lista.itens[i].valor;
+        total += lista.itens[i].valor * lista.itens[i].quantidade;
     }
     
     return total/qtdPessoas;
@@ -54,5 +56,5 @@ TEST_CASE("Calcular divisão dos gastos") {
         {"Linguiça", 15.0, 3},
         {"Pão de Alho", 10.0, 5}
     }};
-    CHECK(calcularDivisao(lista, 5) == doctest::Approx(7.0).epsilon(0.1));
+    CHECK(calcularDivisao(lista, 5) == doctest::Approx(27.0).epsilon(0.1));
 }
