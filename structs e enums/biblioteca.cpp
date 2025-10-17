@@ -68,7 +68,7 @@ TEST_CASE("Buscar livros por autor") {
     Livros biblioteca = {3, {
         {"O Senhor dos Anéis", "J.R.R. Tolkien", 1954, 1216, true},
         {"1984", "George Orwell", 1949, 328, true},
-        {"A Revolução dos Bichos", "George Orwell", 1945, 112, true}
+        {"A Revolução dos Bichos", "George Orwell", 1945, 112, false}
     }};
     Livros resultado = buscarLivros(biblioteca, AUTOR, "Orwell");
     CHECK(resultado.quantidade == 2);
