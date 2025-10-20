@@ -1,17 +1,20 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include <string>
+using namespace std;
 
 const int MAX_CONTATOS = 50;
 
 class Contato {
-    std::string nome, telefone, email;
+    public:
+    string nome, telefone, email;
 };
 
 
 class ListaContatos {
     int quantidade;
     Contato contatos[MAX_CONTATOS];
+    
     public:
         ListaContatos() {
             quantidade = 0;
@@ -21,12 +24,30 @@ class ListaContatos {
             if (quantidade >= MAX_CONTATOS) {
                 return false;
             }
+            contatos[quantidade] = contato;
+            quantidade++;
             return true;
         }
+
+        bool removerContato(string palavrachave) {
+
+            for(int i=0;i<quantidade;i++) {
+                if (palavrachave == contatos[i].nome) {
+                    quantidade--;
+                    return true;
+                }
+                return false;
+            }    
+        }
+
+        bool buscarContato(string name, Contato &contato) {
+            
+        }
+
+        int consultaQuantidade() {
+            return quantidade;
+        }
 };
-
-
-
 
 
 
@@ -39,10 +60,10 @@ TEST_CASE("Gerenciar contatos") {
     CHECK(lista.adicionarContato(c1) == true);
     CHECK(lista.adicionarContato(c2) == true);
     CHECK(lista.adicionarContato(c3) == true);
-    CHECK(lista.quantidade == 3);
+    CHECK(lista.consultaQuantidade() == 3);
 
     CHECK(lista.removerContato("Beltrano") == true);
-    CHECK(lista.contatos.quantidade() == 2);
+    CHECK(lista.consultaQuantidade() == 2);
 
     Contato fulano, beltrano;
 
